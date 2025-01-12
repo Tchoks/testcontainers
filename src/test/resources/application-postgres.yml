@@ -1,0 +1,9 @@
+spring:
+  datasource:
+    username: ${USERNAME}
+    password: ${PASSWORD}
+    url: ${JDBC_URL}
+    driver-class-name: org.postgresql.Driver
+    type: org.postgresql.ds.PGSimpleDataSource
+    hikari:
+      maximum-pool-size: 30
