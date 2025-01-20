@@ -8,11 +8,12 @@ import org.springframework.data.jdbc.repository.config.EnableJdbcRepositories;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 
-@EnableJdbcRepositories
-@EnableJpaRepositories(basePackages = "com.tchokonthe.oracle")
-@EntityScan(basePackages = "com.tchokonthe.oracle")
+
 @SpringBootApplication
 @EnableAspectJAutoProxy
+@EnableJdbcRepositories
+@EntityScan(basePackages = "com.tchokonthe.oracle")
+@EnableJpaRepositories(basePackages = "com.tchokonthe.oracle")
 public class OracleDbFreeApplication {
 
     public static void main(String[] args) {
