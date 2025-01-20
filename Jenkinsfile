@@ -24,7 +24,7 @@ pipeline {
 				withMaven(maven: 'maven-3') {
 					echo "Unit Tests..."
 					sh '''
-						mvn clen test-compile surefire:test ${MAVEN_ARGS}
+						mvn clean test-compile surefire:test ${MAVEN_ARGS}
 					'''
 				}
 			}
