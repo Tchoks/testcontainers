@@ -42,7 +42,7 @@ pipeline {
 			}
 			post {
 				success {
-					junit allowEmptyResuts: true, testResults: '**/**reports/*.xml'
+					junit allowEmptyResults: true, testResults: '**/**reports/*.xml'
 				}
 			}
 		}
