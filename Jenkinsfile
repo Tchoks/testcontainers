@@ -2,7 +2,6 @@ pipeline {
 	agent any
 
 	environment {
-		mavenHome = tool 'jenkins-maven'
 		MAVEN_ARGS = " -B -e -U"
 	}
 
