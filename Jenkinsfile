@@ -1,6 +1,11 @@
 pipeline {
 	agent any
 
+	tools {
+		jdk 'jdk-21'
+		maven 'maven-3'
+	}
+
 	environment {
 		MAVEN_ARGS = " -B -e -U"
 	}
@@ -15,7 +20,6 @@ pipeline {
             			mvn clean install -DskipTests=true -Dmaven.javadoc.skip=true -Dcheckstyle.skip=true ${MAVEN_ARGS}
                 	'''
 				}
-
 			}
 		}
 
@@ -58,7 +62,10 @@ pipeline {
 			steps {
 				sh '''
 					echo "OWASP Dependency-Check vulnerabilities"
+					mvn dependency-check:check
 				'''
+
+				dependencyCheckPublisher pattern: '/target:dependency-check-report-xml'
 			}
 		}
 	}
