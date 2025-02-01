@@ -53,10 +53,13 @@ pipeline {
 		stage('Code Quality - Sonar') {
 			steps {
 			withSonarQubeEnv('sonar') {
-			      sh '''
-            		echo "Running Sonar Analysis"
-            	    mvn sonar:sonar -Dsonar.dependencyCheck.jsonReportPath=target/dependency-check-report.json -Dsonar.dependencyCheck.xmlReportPath=target/dependency-check-report.xml -Dsonar.dependencyCheck.htmlReportPath=target/dependency-check-report.html
-            	  '''
+			withMaven(maven: 'maven-3') {
+            					  sh '''
+                                       echo "Running Sonar Analysis"
+                                       mvn sonar:sonar -Dsonar.dependencyCheck.jsonReportPath=target/dependency-check-report.json -Dsonar.dependencyCheck.xmlReportPath=target/dependency-check-report.xml -Dsonar.dependencyCheck.htmlReportPath=target/dependency-check-report.html
+                                  '''
+            				}
+
 			    }
 		    }
 	    }
@@ -67,7 +70,7 @@ pipeline {
                         waitForQualityGate abortPipeline: true
                       }
                     }
-                  }
+        }
 
 		stage('OWASP Dependency-Check vulnerabilities') {
 			steps {
