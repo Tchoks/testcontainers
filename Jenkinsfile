@@ -52,12 +52,22 @@ pipeline {
 
 		stage('Code Quality - Sonar') {
 			steps {
-				sh '''
-					echo "Running Sonar Analysis"
-					mvn sonar:sonar -Dsonar.dependencyCheck.jsonReportPath=target/dependency-check-report.json -Dsonar.dependencyCheck.xmlReportPath=target/dependency-check-report.xml -Dsonar.dependencyCheck.htmlReportPath=target/dependency-check-report.html
-				'''
-			}
-		}
+			withSonarQubeEnv('sonar') {
+			      sh '''
+            		echo "Running Sonar Analysis"
+            	    mvn sonar:sonar -Dsonar.dependencyCheck.jsonReportPath=target/dependency-check-report.json -Dsonar.dependencyCheck.xmlReportPath=target/dependency-check-report.xml -Dsonar.dependencyCheck.htmlReportPath=target/dependency-check-report.html
+            	  '''
+			    }
+		    }
+	    }
+
+	    stage("Quality Gate") {
+                    steps {
+                      timeout(time: 1, unit: 'HOURS') {
+                        waitForQualityGate abortPipeline: true
+                      }
+                    }
+                  }
 
 		stage('OWASP Dependency-Check vulnerabilities') {
 			steps {
