@@ -52,7 +52,7 @@ pipeline {
 
 		stage('Code Quality - Sonar') {
 			steps {
-			withSonarQubeEnv('sonar') {
+			withSonarQubeEnv(installationName: 'sonar') {
 			withMaven(maven: 'maven-3') {
             					  sh '''
                                        echo "Running Sonar Analysis"
