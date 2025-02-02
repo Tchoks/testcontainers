@@ -72,7 +72,6 @@ pipeline {
 					echo "OWASP Dependency-Check vulnerabilities"
 					mvn dependency-check:check
 				'''
-				dependencyCheckPublisher pattern: '/target:dependency-check-report-xml'
 			}
 		}
 	}
