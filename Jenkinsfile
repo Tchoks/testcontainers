@@ -52,7 +52,7 @@ pipeline {
 
 		stage('Code Quality - Sonar') {
 			steps {
-			withSonarQubeEnv(installationName: 'sonar') {
+			withSonarQubeEnv(credentialsId: 'jenkins-sonar-token', installationName: 'sonar') {
 			withMaven(maven: 'maven-3') {
             					  sh '''
                                        echo "Running Sonar Analysis"
@@ -66,7 +66,7 @@ pipeline {
 
 	    stage("Quality Gate") {
                     steps {
-                      timeout(time: 1, unit: 'HOURS') {
+                      timeout(time: 2, unit: 'MINUTES') {
                         waitForQualityGate abortPipeline: true
                       }
                     }
